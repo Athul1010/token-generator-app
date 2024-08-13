@@ -38,6 +38,18 @@ const TokenGenerator = () => {
     ]);
   };
 
+  const clearFields = () => {
+    setFormData({
+      blueTokens: 0,
+      bluePrefix: '',
+      bluePerRow: 0,
+      redTokens: 0,
+      redPrefix: '',
+      redPerRow: 0,
+    });
+    setTokens([]);
+  };
+
   return (
     <Container>
       <h1>Token Generator Application</h1>
@@ -58,7 +70,7 @@ const TokenGenerator = () => {
           <Button variant="contained" color="primary" onClick={generateTokens}>
             Generate
           </Button>
-          <Button variant="outlined" color="secondary" style={{ marginLeft: 10 }}>
+          <Button variant="outlined" color="secondary" style={{ marginLeft: 10 }} onClick={clearFields}>
             Clear
           </Button>
         </Grid>
