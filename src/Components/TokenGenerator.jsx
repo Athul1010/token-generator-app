@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../Styles/TokenGenerator.css'
 import { Container, TextField, Button, Grid, Box } from '@mui/material';
 
 const TokenGenerator = () => {
@@ -50,44 +51,52 @@ const TokenGenerator = () => {
     setTokens([]);
   };
 
+  const renderTokens = ({ color, tokens, perRow }) => (
+    <Grid container spacing={2}>
+      {tokens.map((token, index) => (
+        <Grid item key={index} xs={12 / perRow}>
+          <Box bgcolor={color} color="white" p={2} textAlign="center">
+            {token}
+          </Box>
+        </Grid>
+      ))}
+    </Grid>
+  );
+
   return (
     <Container>
-      <h1>Token Generator Application</h1>
-      <Grid container spacing={2}>
-        {['blueTokens', 'bluePrefix', 'bluePerRow', 'redTokens', 'redPrefix', 'redPerRow'].map((field, idx) => (
-          <Grid item xs={12} sm={4} key={idx}>
-            <TextField
-              fullWidth
-              label={field.replace(/([A-Z])/g, ' $1').replace('blue', 'Blue').replace('red', 'Red')}
-              name={field}
-              value={formData[field]}
-              onChange={handleChange}
-              type={field.includes('Tokens') || field.includes('PerRow') ? 'number' : 'text'}
-            />
+      <div className='home-page'>
+        <h1 className='title'>Token Generator Application</h1>
+        <hr className='line'/>
+        <Grid container spacing={2}>
+          {['blueTokens', 'bluePrefix', 'bluePerRow', 'redTokens', 'redPrefix', 'redPerRow'].map((field, idx) => (
+            <Grid item xs={12} sm={4} key={idx}>
+              <TextField
+                fullWidth
+                label={field.replace(/([A-Z])/g, ' $1').replace('blue', 'Blue').replace('red', 'Red')}
+                name={field}
+                value={formData[field]}
+                onChange={handleChange}
+                type={field.includes('Tokens') || field.includes('PerRow') ? 'number' : 'text'}
+              />
+            </Grid>
+          ))}
+          <Grid item xs={12}>
+            <Button variant="contained" color="primary" onClick={generateTokens}>
+              Generate
+            </Button>
+            <Button variant="outlined" color="secondary" onClick={clearFields} style={{ marginLeft: 10 }}>
+              Clear
+            </Button>
           </Grid>
-        ))}
-        <Grid item xs={12}>
-          <Button variant="contained" color="primary" onClick={generateTokens}>
-            Generate
-          </Button>
-          <Button variant="outlined" color="secondary" style={{ marginLeft: 10 }} onClick={clearFields}>
-            Clear
-          </Button>
         </Grid>
-      </Grid>
-      <Box mt={4}>
+  
         {tokens.map((tokenGroup, index) => (
-          <Grid container spacing={2} key={index}>
-            {tokenGroup.tokens.map((token, idx) => (
-              <Grid item xs={12 / tokenGroup.perRow} key={idx}>
-                <Box bgcolor={tokenGroup.color} color="white" p={2} textAlign="center">
-                  {token}
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
+          <Box mt={4} key={index}>
+            {renderTokens(tokenGroup)}
+          </Box>
         ))}
-      </Box>
+      </div>
     </Container>
   );
 };

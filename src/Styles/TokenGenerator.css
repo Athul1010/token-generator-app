@@ -1,0 +1,26 @@
+.home-page {
+    border: 1px solid black;
+    margin: 24px 24px;
+    padding: 20px 20px;
+}
+
+.title {
+    margin-top: 0px;
+    margin-bottom: 2px;
+}
+
+.line {
+    height: 1px;
+    background-color: black;
+    width: 25rem;
+    margin-bottom: 25px;
+}
+
+@media only screen and (max-width: 555px){
+    .line{
+        width: 12rem;
+    }
+    .title {
+        font-size: 25px;
+    }
+}
